@@ -11,7 +11,8 @@ private:
 
 public:
 	Grid(int dimX, int dimY);
-	void setupNeighbours();
 	void displayGrid();
+	void setupNeighbourhood(Pixel* px, int posX, int posY);
+	Pixel* getPixelIfExists(int posX, int posY);
 };
 

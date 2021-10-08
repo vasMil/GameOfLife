@@ -6,12 +6,15 @@ class Pixel
 {
 private:
 	int state;
-	std::vector<std::vector<Pixel*>> neighbourhood;
 
 public:
+	std::vector<std::vector<Pixel*>> neighbourhood;
+
 	Pixel(int state);
 	void updateState();
-	void setNeighbourhood(std::vector<Pixel*>* neighbourhood);
 	int getState();
+
+	// Testing
+	void setRightmostNeighbour();
 };
 

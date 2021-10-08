@@ -17,6 +17,12 @@ Grid::Grid(int dimX, int dimY) {
 		}
 		this->grid.push_back(temp);
 	}
+
+	for (i = 0; i < dimX; i++) {
+		for (j = 0; j < dimY; j++) {
+			setupNeighbourhood(this->grid[i][j], i, j);
+		}
+	}
 }
 
 void Grid::displayGrid() {
@@ -27,4 +33,21 @@ void Grid::displayGrid() {
 		}
 		std::cout << std::endl;
 	}
+}
+
+void Grid::setupNeighbourhood(Pixel* px, int posX, int posY) {
+	for (int i : {-1,0,1}) {
+		std::vector<Pixel*> neighbourhoodRow;
+		for (int j : {-1, 0, 1}) {
+			neighbourhoodRow.push_back(this->getPixelIfExists(posX + i, posY + j));
+		}
+		px->neighbourhood.push_back(neighbourhoodRow);
+	}
+}
+
+Pixel* Grid::getPixelIfExists(int posX, int posY) {
+	if (posX < 0 || posX >= this->dimX || posY < 0 || posY >= this->dimY) {
+		return nullptr;
+	}
+	return this->grid[posX][posY];
 }
