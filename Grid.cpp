@@ -4,11 +4,13 @@ Grid::Grid(int dimX, int dimY) {
 	this->dimX = dimX;
 	this->dimY = dimY;
 
+	auto gen = std::bind(std::uniform_int_distribution<>(0,1),std::default_random_engine());
+
 	int i = 0, j = 0;
 	for (i = 0; i < dimX; i++) {
 		std::vector<Pixel*> temp;
 		for (j = 0; j < dimY; j++) {
-			if (i != j) {
+			if (gen()) {
 				temp.push_back(new Pixel(0));
 			}
 			else {
@@ -33,6 +35,8 @@ void Grid::displayGrid() {
 		}
 		std::cout << std::endl;
 	}
+	this->preStep();
+	this->advance();
 }
 
 void Grid::setupNeighbourhood(Pixel* px, int posX, int posY) {
@@ -50,4 +54,20 @@ Pixel* Grid::getPixelIfExists(int posX, int posY) {
 		return nullptr;
 	}
 	return this->grid[posX][posY];
+}
+
+void Grid::preStep() {
+	for (int i = 0; i < this->dimX; i++) {
+		for (int j = 0; j < this->dimY; j++) {
+			this->grid[i][j]->updateNextState();
+		}
+	}
+}
+
+void Grid::advance() {
+	for (int i = 0; i < this->dimX; i++) {
+		for (int j = 0; j < this->dimY; j++) {
+			this->grid[i][j]->advance();
+		}
+	}
 }

@@ -12,11 +12,8 @@ int main(int argc, char** argv) {
 
 
 	Grid* grid = new Grid(rows, columns);
-    for (int i = 0; i < 1; i++) {
-        grid->displayGrid();
-    }
-    grid->getPixelIfExists(1, 1)->setRightmostNeighbour();
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 100; i++) {
+        system("cls");
         grid->displayGrid();
     }
     return 0;
