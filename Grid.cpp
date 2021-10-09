@@ -33,7 +33,12 @@ void Grid::displayGrid() {
 		for (j = 0; j < this->dimY; j++) {
 			this->grid[i][j]->getState() ? std::cout << '\xDB' : std::cout << " ";
 		}
-		std::cout << std::endl;
+		if (i == this->dimX - 1) {
+			Utils::resetCursorPosWindows();
+		}
+		else {
+			std::cout << std::endl;
+		}
 	}
 	this->preStep();
 	this->advance();
