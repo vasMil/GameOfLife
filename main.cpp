@@ -1,20 +1,26 @@
 #include <windows.h>
+#include "Utils.h"
 #include "Grid.h"
 #include "Pixel.h"
 
 int main(int argc, char** argv) {
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    int columns, rows;
+    // Wait for the user to resize the terminal window
+    std::cout << "Resize the window to the size you want the Game of Life to be displayed on" << std::endl;
+    system("pause");
+    system("cls");
 
-    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-    columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-    rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+    // Lock the terminal size, so the user may not resize it as the game runs
 
+    // Hide the cursor that blinks on the terminal for better visuals
+    Utils::ShowConsoleCursor(false);
 
-	Grid* grid = new Grid(rows, columns);
-    for (int i = 0; i < 100; i++) {
-        // system("cls");
+    // Get the terminal dimensions
+    terminalDimensions window = Utils::getTerminalDimensions();
+    // Create a grid for those dimensions
+	Grid* grid = new Grid(window.rows, window.columns/2);
+    while (1) {
         grid->displayGrid();
     }
+        
     return 0;
 }

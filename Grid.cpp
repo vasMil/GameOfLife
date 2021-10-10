@@ -31,7 +31,10 @@ void Grid::displayGrid() {
 	int i = 0, j = 0;
 	for (i = 0; i < this->dimX; i++) {
 		for (j = 0; j < this->dimY; j++) {
-			this->grid[i][j]->getState() ? std::cout << '\xDB' : std::cout << " ";
+			// I noticed that on default settings the terminal has characters with a height two times their width.
+			// Thus by adding two same characters one after the other I am able to create a square on the terminal.
+			// Each square "is a" Pixel.
+			this->grid[i][j]->getState() ? std::cout << '\xDB' << '\xDB' : std::cout << "  ";
 		}
 		if (i == this->dimX - 1) {
 			Utils::resetCursorPosWindows();
